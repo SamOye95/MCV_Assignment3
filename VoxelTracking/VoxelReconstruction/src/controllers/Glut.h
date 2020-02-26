@@ -40,6 +40,7 @@ namespace nl_uu_science_gmt
 		static void drawVoxels();
 		static void drawWCoord();
 		static void drawInfo();
+		static void drawTracks(); // This function tracks the movement of clustered voxels
 
 		static inline void perspectiveGL(
 			GLdouble, GLdouble, GLdouble, GLdouble);

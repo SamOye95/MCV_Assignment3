@@ -30,8 +30,14 @@ Reconstructor::Reconstructor(
 				m_cameras(cs),
 				m_height(2048),
 				// added user function
-				m_width(7168),
-				m_step(32)
+				//m_width(7168),
+				m_step(32),
+
+				// Redefining the scene width for clusters
+				m_width(6144),
+				m_clusters(4),
+				m_clusterCenters(4)
+				
 {
 	for (size_t c = 0; c < m_cameras.size(); ++c)
 	{
@@ -65,6 +71,12 @@ Reconstructor::~Reconstructor()
  * 	- LUT with a map of the entire voxelspace: point-on-cam to voxels
  * 	- LUT with a map of the entire voxelspace: voxel to cam points-on-cam
  */
+
+
+
+
+
+
 void Reconstructor::initialize()
 {
 	// Cube dimensions from [(-m_height, m_height), (-m_height, m_height), (0, m_height)]
@@ -151,6 +163,55 @@ void Reconstructor::initialize()
 }
 
 /**
+* Initialize label for each visible voxels
+* use kmeans for clustering and to calculate cluster center to draw the tracks
+*/
+void Reconstructor::labelClusters(bool isFirstFrame)
+{
+	vector<int> labels(m_visible_voxels.size());
+	vector<Point2f> points;
+	Mat centers;
+
+	for (int i = 0; i < m_visible_voxels.size(); i++)
+	{
+		points.push_back(Point(m_visible_voxels[i]->x, m_visible_voxels[i]->y));
+		if (!isFirstFrame)
+		{
+			labels[i] = m_visible_voxels[i]->label;
+		}
+	}
+
+	// clustering the voxels based on the cluster count
+	if (isFirstFrame)
+	{
+		// use kmeans++ center initialization by Arthur and Vassilvitskii [Arthur2007]
+		kmeans(points, m_clusters, labels,
+			TermCriteria(TermCriteria::EPS + TermCriteria::COUNT, 10, 1.0),
+			4, KMEANS_PP_CENTERS, centers);
+
+		// fill the label based on kmeans calculation
+		for (int i = 0; i < m_visible_voxels.size(); i++)
+		{
+			m_visible_voxels[i]->label = labels[i];
+		}
+	}
+	else
+	{
+		// use the user-supplied labels instead of computing them from the initial centers
+		kmeans(points, m_clusters, labels,
+			TermCriteria(TermCriteria::EPS + TermCriteria::COUNT, 10, 1.0),
+			1, KMEANS_USE_INITIAL_LABELS, centers);
+	}
+
+	// set path tracker centers by calculating the cluster centers
+	for (int i = 0; i < m_clusters; i++)
+	{
+		m_clusterCenters[i] = Point2i(centers.at<float>(i, 0), centers.at<float>(i, 1));
+	}
+	trackCenters.push_back(m_clusterCenters);
+}
+
+/**
  * Count the amount of camera's each voxel in the space appears on,
  * if that amount equals the amount of cameras, add that voxel to the
  * visible_voxels vector
@@ -181,6 +242,21 @@ void Reconstructor::update()
 		// If the voxel is present on all cameras
 		if (camera_counter == m_cameras.size())
 		{
+
+			int minLabel = 0;
+			float minDistance = norm(m_clusterCenters[0] - Point2f(voxel->x, voxel->y));
+
+			for (int i = 0; i < m_clusters; i++)
+			{
+				float distance = norm(m_clusterCenters[i] - Point2f(voxel->x, voxel->y));
+				if (distance < minDistance)
+				{
+					minLabel = i;
+					minDistance = distance;
+				}
+			}
+			voxel->label = minLabel;
+
 #pragma omp critical //push_back is critical
 			visible_voxels.push_back(voxel);
 		}
