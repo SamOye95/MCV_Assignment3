@@ -69,9 +69,9 @@ Scene3DRenderer::Scene3DRenderer(
 	m_current_frame = 0;
 	m_previous_frame = -1;
 
-	const int H = 11;
-	const int S = 22;
-	const int V = 38;
+	const int H = 15;
+	const int S = 50;
+	const int V = 51;
 	m_h_threshold = H;
 	m_ph_threshold = H;
 	m_s_threshold = S;
@@ -152,9 +152,29 @@ void Scene3DRenderer::processForeground(
 
 		// Background subtraction V
 		absdiff(channels[2], camera->getBgHsvChannels().at(2), tmp);
-		adaptiveThreshold(tmp, background, 0, ADAPTIVE_THRESH_GAUSSIAN_C, CV_THRESH_BINARY, 11, 3);
-		//threshold(tmp, background, m_v_threshold, 255, CV_THRESH_BINARY);
+		threshold(tmp, background, m_v_threshold, 255, CV_THRESH_BINARY);
 		bitwise_or(foreground, background, foreground);
+
+		// Initialzie the erosion and dilation kernels
+		Mat erosion_kernel = getStructuringElement(MORPH_ELLIPSE, Size(5, 5), Point(2, 2));
+		Mat dilation_kernel = getStructuringElement(MORPH_ELLIPSE, Size(5, 5), Point(2, 2));
+
+		// Dilate the image to cover some of the holes already
+		dilate(foreground, foreground, dilation_kernel);
+		// Erode the image to remove some of the noise
+		erode(foreground, foreground, erosion_kernel);
+
+		// Morph the image to fill the last missing holes
+		Mat morph = getStructuringElement(cv::MORPH_ELLIPSE, Size(20, 20));
+		morphologyEx(foreground, foreground, MORPH_CLOSE, morph);
+		morph = getStructuringElement(MORPH_ELLIPSE, Size(6, 6));
+		morphologyEx(foreground, foreground, MORPH_OPEN, morph);
+
+		erosion_kernel = getStructuringElement(MORPH_ELLIPSE, Size(3, 3), Point(2, 2));
+		erode(foreground, foreground, erosion_kernel);
+
+		// Blur the image to smooth out the foreground.
+		medianBlur(foreground, foreground, 5);
 	}
 	else
 	{
