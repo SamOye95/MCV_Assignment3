@@ -65,6 +65,7 @@ public:
 	virtual ~Reconstructor();
 
 	void update();
+	void initializeClusters();
 
 	const std::vector<Voxel*>& getVisibleVoxels() const
 	{

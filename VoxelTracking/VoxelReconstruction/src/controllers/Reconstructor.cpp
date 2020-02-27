@@ -207,6 +207,9 @@ void Reconstructor::update()
 }
 
 
+void Reconstructor::initializeClusters()
+{
 
+}
 
 } /* namespace nl_uu_science_gmt */
