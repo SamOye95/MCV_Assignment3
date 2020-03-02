@@ -469,6 +469,14 @@ namespace nl_uu_science_gmt
 		{
 			autoParameters = !autoParameters;
 		}
+
+
+		std::vector<unsigned char> floor_image;
+
+		std::vector<unsigned char>* getFloorImage()
+		{
+			return &floor_image;
+		}
 	};
 
 

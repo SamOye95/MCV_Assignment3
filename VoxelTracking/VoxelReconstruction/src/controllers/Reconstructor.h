@@ -12,6 +12,10 @@
 #include <stddef.h>
 #include <vector>
 
+#ifdef _OPENMP
+#include <omp.h>
+#endif
+
 #include "Camera.h"
 
 
@@ -150,6 +154,7 @@ public:
 	// if the voxels are already clustered or not
 	bool isClustered = false;
 	bool drawMesh = false;
+
 
 };
 

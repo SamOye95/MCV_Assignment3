@@ -51,10 +51,10 @@ namespace nl_uu_science_gmt
 			m_plane_size = m_cameras[c]->getSize();
 	}
 
-	//const size_t edge = 2 * m_height;
+	const size_t edge = 2 * m_height;
 
 	// separate scene width from height
-	m_voxels_amount = (m_width / m_step) * (m_width / m_step) * (m_height / m_step);
+	m_voxels_amount = (edge / m_step) * (edge / m_step) * (m_height / m_step);
 
 	initialize();
 }
@@ -110,10 +110,13 @@ void Reconstructor::initialize()
 	cout << "Initializing " << m_voxels_amount << " voxels ";
 	m_voxels.resize(m_voxels_amount);
 
-	int z;
+
 	int pdone = 0;
+#ifdef _OPENMP
+	omp_set_num_threads(NUM_THREADS);
 #pragma omp parallel for schedule(auto) private(z) shared(pdone)
-	for (z = zL; z < zR; z += m_step)
+#endif
+	for (int z = zL; z < zR; z += m_step)
 	{
 		const int zp = (z - zL) / m_step;
 		int done = cvRound((zp * plane / (double) m_voxels_amount) * 100.0);
@@ -270,10 +273,12 @@ void Reconstructor::update()
 	m_visible_voxels.clear();
 	std::vector<Voxel*> visible_voxels;
 
-	int v;
+#ifdef _OPENMP
+	omp_set_num_threads(NUM_THREADS);
 //#pragma omp parallel for schedule(auto) private(v) shared(visible_voxels)
 #pragma omp parallel for private(v) shared(visible_voxels)
-	for (v = 0; v < (int) m_voxels_amount; ++v)
+#endif
+	for (int v = 0; v < (int) m_voxels_amount; ++v)
 	{
 		int camera_counter = 0;
 		Voxel* voxel = m_voxels[v];
@@ -306,8 +311,9 @@ void Reconstructor::update()
 				}
 			}
 			voxel->label = minLabel;
-
+#ifdef _OPENMP
 #pragma omp critical //push_back is critical
+#endif
 			if(minDistance < 1000 || !isClustered)
 			{
 				visible_voxels.push_back(voxel);

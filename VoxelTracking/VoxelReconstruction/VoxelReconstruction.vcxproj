@@ -18,6 +18,7 @@
     <ClCompile Include="src\controllers\Scene3DRenderer.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\utilities\General.cpp" />
+    <ClCompile Include="src\utilities\lodepng.cpp" />
     <ClCompile Include="src\VoxelReconstruction.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -27,6 +28,7 @@
     <ClInclude Include="src\controllers\Reconstructor.h" />
     <ClInclude Include="src\controllers\Scene3DRenderer.h" />
     <ClInclude Include="src\utilities\General.h" />
+    <ClInclude Include="src\utilities\lodepng.h" />
     <ClInclude Include="src\VoxelReconstruction.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

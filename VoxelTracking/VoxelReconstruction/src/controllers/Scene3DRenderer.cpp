@@ -288,6 +288,11 @@ void Scene3DRenderer::createFloorGrid()
 	m_floor_grid.push_back(edge2);
 	m_floor_grid.push_back(edge3);
 	m_floor_grid.push_back(edge4);
+	
+	// Initialize floor image
+	floor_image.resize((m_reconstructor.getWidth() / m_reconstructor.getStep()) * (m_reconstructor.getWidth() / m_reconstructor.getStep()) * 4);
+
+
 }
 
 } /* namespace nl_uu_science_gmt */

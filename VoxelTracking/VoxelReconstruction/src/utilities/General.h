@@ -8,6 +8,12 @@
 #ifndef GENERAL_H_
 #define GENERAL_H_
 
+#include <fstream>
+
+#ifdef _OPENMP
+#include <omp.h>
+#endif
+
 #include <opencv2/core/core.hpp>
 #include <opencv2/core/operations.hpp>
 #include <string>
