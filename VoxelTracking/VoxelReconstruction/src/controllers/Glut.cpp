@@ -27,6 +27,7 @@
 #include <vector>
 
 #include "../utilities/General.h"
+#include "../utilities/lodePng.h"
 #include "arcball.h"
 #include "Camera.h"
 #include "Reconstructor.h"

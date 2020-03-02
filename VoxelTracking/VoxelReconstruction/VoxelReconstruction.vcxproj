@@ -64,8 +64,9 @@
     <IncludePath>$(OPENCV_DIR)\build\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\Lisa\Documents\polyvox-0.2.1.tar\polyvox-0.2.1\library\PolyVoxUtil\include;C:\polyvox-0.2.1.tar\polyvox-0.2.1\library\PolyVoxCore\include;C:\OpenCV4\include;$(IncludePath)</IncludePath>
-    <SourcePath>C:\polyvox-0.2.1.tar\polyvox-0.2.1\library\PolyVoxCore\source;$(SourcePath)</SourcePath>
+    <IncludePath>C:\Users\Samuel Oyediran\Documents\opencv\build\include;C:\Program Files (x86)\Windows Kits\10\Include;C:\Users\Samuel Oyediran\Documents\polyvox-0.2.1\polyvox-0.2.1\library\PolyVoxCore\include;$(IncludePath)</IncludePath>
+    <SourcePath>C:\Users\Samuel Oyediran\Documents\polyvox-0.2.1\library\PolyVoxCore\source;C:\Users\Samuel Oyediran\Documents\polyvox-0.2.1\library\PolyVoxUtil\source;$(SourcePath)</SourcePath>
+    <LibraryPath>C:\Users\Samuel Oyediran\Documents\polyvox-0.2.1\build\library;C:\Program Files (x86)\Windows Kits\10\Lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -75,8 +76,8 @@
       <AdditionalIncludeDirectories>C:\Users\Samuel Oyediran\Documents\opencv\build\include;C:\Program Files (x86)\Windows Kits\10\Include;C:\Users\Samuel Oyediran\Documents\polyvox-0.2.1\library\PolyVoxUtil\include\PolyVoxUtil;C:\Users\Samuel Oyediran\Documents\polyvox-0.2.1\library\PolyVoxCore\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>opencv_aruco420d.lib;opencv_bgsegm420d.lib;opencv_bioinspired420d.lib;opencv_calib3d420d.lib;opencv_ccalib420d.lib;opencv_core420d.lib;opencv_datasets420d.lib;opencv_dnn420d.lib;opencv_dnn_objdetect420d.lib;opencv_dnn_superres420d.lib;opencv_dpm420d.lib;opencv_face420d.lib;opencv_features2d420d.lib;opencv_flann420d.lib;opencv_fuzzy420d.lib;opencv_gapi420d.lib;opencv_hfs420d.lib;opencv_highgui420d.lib;opencv_imgcodecs420d.lib;opencv_imgproc420d.lib;opencv_img_hash420d.lib;opencv_intensity_transform420d.lib;opencv_line_descriptor420d.lib;opencv_ml420d.lib;opencv_objdetect420d.lib;opencv_optflow420d.lib;opencv_phase_unwrapping420d.lib;opencv_photo420d.lib;opencv_plot420d.lib;opencv_quality420d.lib;opencv_rapid420d.lib;opencv_reg420d.lib;opencv_rgbd420d.lib;opencv_saliency420d.lib;opencv_shape420d.lib;opencv_stereo420d.lib;opencv_stitching420d.lib;opencv_structured_light420d.lib;opencv_superres420d.lib;opencv_surface_matching420d.lib;opencv_text420d.lib;opencv_tracking420d.lib;opencv_video420d.lib;opencv_videoio420d.lib;opencv_videostab420d.lib;opencv_xfeatures2d420d.lib;opencv_ximgproc420d.lib;opencv_xobjdetect420d.lib;opencv_xphoto420d.lib;OpenGL32.lib;Glu32.lib;PolyVoxCore.lib;PolyVoxUtil.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\Lisa\Documents\polyvox-0.2.1.tar\polyvox-0.2.1\build\library\PolyVoxUtil\Debug;C:\polyvox-0.2.1.tar\polyvox-0.2.1\build\library\PolyVoxCore\Debug;C:\OpenCV4\x64\vc16\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opencv_world420d.lib;OpenGL32.lib;Glu32.lib;PolyVoxCore.lib;PolyVoxUtil.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Program Files (x86)\Windows Kits\10\Lib;C:\Users\Samuel Oyediran\Documents\opencv\build\x64\vc15\lib;C:\Users\Samuel Oyediran\Documents\polyvox-0.2.1\build\library\PolyVoxCore\Debug;C:\Users\Samuel Oyediran\Documents\polyvox-0.2.1\build\library\PolyVoxUtil\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <LinkStatus>
       </LinkStatus>
     </Link>

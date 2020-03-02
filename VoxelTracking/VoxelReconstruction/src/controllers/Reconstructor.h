@@ -14,11 +14,13 @@
 
 #include "Camera.h"
 
+
  //PolyVox libraries
 #include "PolyVoxCore/MaterialDensityPair.h"
 #include "PolyVoxCore/MarchingCubesSurfaceExtractor.h"
 #include "PolyVoxCore/SurfaceMesh.h"
 #include "PolyVoxCore/SimpleVolume.h"
+#include "../../ColorModel.h"
 
 using namespace PolyVox;
 
@@ -32,6 +34,8 @@ public:
 	 * Voxel structure
 	 * Represents a 3D pixel in the half space
 	 */
+
+
 	struct Voxel
 	{
 		int x, y, z;                               // Coordinates
@@ -134,7 +138,17 @@ public:
 		return m_step;
 	}
 
+	// create and save color models to file
+	void createAndSaveColorModels();
 
+	// create color models
+	void createColorModels(std::vector<ColorModel>& models);	
+	
+	// assign labels based on color models
+	void assignLabels(std::vector<int>& labels);				
+
+	// if the voxels are already clustered or not
+	bool isClustered = false;
 	bool drawMesh = false;
 
 };
