@@ -900,7 +900,7 @@ namespace nl_uu_science_gmt
 		glPopMatrix();
 #endif
 	}
-	// GET ERROR OF INDEX OUT OF RANGE MAYBE APPLY AT END LOOK AT STRALUCRA CODE
+	// Laplacian smoothing for the tracking.
 	void smoothing(vector<vector<Point2f>>& a)
 	{
 		int l = a.size();
@@ -928,6 +928,7 @@ namespace nl_uu_science_gmt
 		{
 			smoothing(tracksCenters);
 		}
+
 		unsigned char red, green, blue = 0;
 		unsigned char alpha = 255;
 		for (int i = 0; i < 4; i++)
