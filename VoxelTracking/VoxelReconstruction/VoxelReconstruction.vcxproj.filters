@@ -36,6 +36,9 @@
     <ClCompile Include="src\controllers\Scene3DRenderer.cpp">
       <Filter>src\controllers</Filter>
     </ClCompile>
+    <ClCompile Include="src\utilities\lodepng.cpp">
+      <Filter>src\utilities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\VoxelReconstruction.h">
@@ -58,6 +61,9 @@
     </ClInclude>
     <ClInclude Include="src\controllers\Scene3DRenderer.h">
       <Filter>src\controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utilities\lodepng.h">
+      <Filter>src\utilities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
