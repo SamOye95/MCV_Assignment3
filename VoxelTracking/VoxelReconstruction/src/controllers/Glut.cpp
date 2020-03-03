@@ -605,20 +605,6 @@ namespace nl_uu_science_gmt
 
 		Scene3DRenderer& scene3d = m_Glut->getScene3d();
 
-		// For printing the png image
-		//if (scene3d.getCurrentFrame() == 100)
-		//{
-		//	printClusterCentres();
-		//}
-		//if (scene3d.getCurrentFrame() == 2000)
-		//{
-		//	printClusterCentres();
-		//}
-		//if (scene3d.getCurrentFrame() == 2723)
-		//{
-		//	printClusterCentres();
-		//}
-
 		if (scene3d.isQuit())
 		{
 			// Quit signaled
@@ -991,44 +977,7 @@ namespace nl_uu_science_gmt
 			glEnd();
 		}
 	}
-	/*
-	Draw the tracking of the centers to a png file.
-	*/
-	//void Glut::printClusterCentres()
-	//{
-	//	auto m_height = m_Glut->getScene3d().getReconstructor().getSize();
-	//	auto m_step = m_Glut->getScene3d().getReconstructor().getStep();
-	//	auto trackCenters = m_Glut->getScene3d().getReconstructor().trackCenters;
-	//	cv::Mat trackimg(m_height / (m_step / 2), m_height / (m_step / 2), CV_8UC3, cv::Scalar(255, 255, 255));
-	//
-	//	for (int i = 0; i < trackCenters.size(); i++)
-	//	{
-	//		for (int j = 0; j < 4; j++) {
-	//			int xpos = (trackCenters[i][j].x / (m_step / 2)) + (m_height / m_step);
-	//			int ypos = (trackCenters[i][j].y / (m_step / 2)) + (m_height / m_step);
-	//			cout << (xpos, ypos) << endl;
-	//			switch (j)
-	//			{
-	//			case 0:// label zero is Magenta
-	//					trackimg.at<cv::Scalar>(xpos, ypos) = Color_MAGENTA;
-	//					break;
-	//			case 1:// label one is red
-	//					trackimg.at<cv::Scalar>(xpos, ypos) = Color_RED;
-	//					break;
-	//			case 2:// label two is green
-	//					trackimg.at<cv::Scalar>(xpos, ypos) = Color_GREEN;
-	//					break;
-	//			case 3:// label three is blue
-	//					trackimg.at<cv::Scalar>(xpos, ypos) = Color_BLUE;
-	//					break;
-	//
-	//			}
-	//
-	//		}
-	//	}
-	//	cv::imwrite("data/tracking.png", trackimg);
-	//}
-
+	
 	/**
 	 * Draw all visible voxels
 	 */
