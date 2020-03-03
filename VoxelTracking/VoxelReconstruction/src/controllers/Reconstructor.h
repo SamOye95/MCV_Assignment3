@@ -68,7 +68,6 @@ public:
 	virtual ~Reconstructor();
 
 	void update();
-	void initializeClusters();
 
 	const std::vector<Voxel*>& getVisibleVoxels() const
 	{
@@ -129,7 +128,7 @@ public:
 	// labels the clustering
 	void labelClusters(bool isFirstFrame);
 
-	// returns space between voxels
+		// returns space between voxels
 	int getStep() const
 	{
 		return m_step;

@@ -7,6 +7,8 @@
 
 #include "Reconstructor.h"
 
+
+
 #include <opencv2/core/mat.hpp>
 #include <opencv2/core/operations.hpp>
 #include <opencv2/core/types_c.h>
@@ -174,6 +176,7 @@ void Reconstructor::labelClusters(bool isFirstFrame)
 
 	for (int i = 0; i < m_visible_voxels.size(); i++)
 	{
+		//projection of the points by removing the z-axis
 		points.push_back(Point(m_visible_voxels[i]->x, m_visible_voxels[i]->y));
 		if (!isFirstFrame)
 		{
@@ -194,6 +197,7 @@ void Reconstructor::labelClusters(bool isFirstFrame)
 		{
 			m_visible_voxels[i]->label = labels[i];
 		}
+
 	}
 	else
 	{
@@ -208,6 +212,7 @@ void Reconstructor::labelClusters(bool isFirstFrame)
 	{
 		m_clusterCenters[i] = Point2i(centers.at<float>(i, 0), centers.at<float>(i, 1));
 	}
+
 	trackCenters.push_back(m_clusterCenters);
 }
 
@@ -282,10 +287,5 @@ void Reconstructor::update()
 	}
 }
 
-
-void Reconstructor::initializeClusters()
-{
-
-}
 
 } /* namespace nl_uu_science_gmt */
